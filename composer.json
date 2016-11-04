@@ -1,0 +1,13 @@
+{
+    "name": "org_heigl/pdf-date-time",
+    "description": "DateTime-Handling for PDF-Dates",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andreas Heigl",
+            "email": "andreas@heigl.org"
+        }
+    ],
+    "require": {}
+}
