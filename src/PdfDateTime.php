@@ -149,7 +149,7 @@ class PdfDateTime
             $time['second'] = $second;
         }
         // Set Offset
-        if (preg_match('/([Z\-\+])(\d{2}\'){0,1}(\d{2}\'){0,1}$/', $date, $off)) {
+        if (preg_match('/([Z\-\+])(\d{2}\'){0,1}(\d{2}\'){0,1}$/', $string, $off)) {
             $offset = $off[1];
             switch ($offset) {
                 case '+':
@@ -182,11 +182,23 @@ class PdfDateTime
             }
         }
 
+        $timestring = $time['year']
+                      . '-'
+                      . $time['month']
+                      . '-'
+                      . $time['day']
+                      . 'T'
+                      . $time['hour']
+                      . ':'
+                      . $time['minute']
+                      . ':'
+                      . $time['second'];
+
+        if ($time['offset'] === null) {
+            return new \DateTimeImmutable($timestring);
+        }
         // Raw-Data is present, so lets create a DateTime-Object from it:
-        return new \DateTimeImmutable(
-            $time['year'] . '-' . $time['month'] . '-' . $time['day'] . 'T' . $time['hour'] . ':' . $time['minute'] . ':' . $time['second'],
-            new Datetimezone($time['offset'])
-        );
+        return new \DateTimeImmutable($timestring, new \Datetimezone($time['offset']));
     }
 
     /**
